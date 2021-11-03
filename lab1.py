@@ -65,5 +65,8 @@ residuals = sx - ytrain1
 print("The column for the residuals: \n", residuals)
 
 #Quick and easy way to sum squares of residuals
-mse = np.sum(residuals**2, axis=1)
+mse = np.sum(np.square(residuals), axis=1)
 print(mse)
+
+#in future, make this more generalisable, so that you can add as many data
+#points as you want
