@@ -4,6 +4,7 @@ import numpy as np
 def linear_simple(x):
     return -2.5*x
 Xtrain1 = np.linspace(-1,1,3)
+
 np.random.seed(10) 
 # a seed ensures that re-running the random number generator yields the same outcome
 # this is helpful for the purpose of sanity checking your implementations
@@ -24,7 +25,8 @@ functions
 """
 
 #list of slopes to try
-slopes = np.asarray([0.,-1.,-2.,-3.,-4.,-5.,-6.])
+#slopes = np.asarray([0.,-1.,-2.,-3.,-4.,-5.,-6.])
+slopes = np.linspace(-8, 0, 50)
 xslopes = np.linspace(-1, 1, 50)
 for i in range(len(slopes)):
     plt.plot(xslopes,slopes[i]*xslopes, label=slopes[i])
@@ -62,11 +64,38 @@ sx = np.dot(slopes, Xtrain1)
 #numpy understands what you mean when you tell it to subtract another matrix
 #it will do this for every line. Which is cool.
 residuals = sx - ytrain1
-print("The column for the residuals: \n", residuals)
+print("The column for the residuals:\n", residuals)
 
 #Quick and easy way to sum squares of residuals
-mse = np.sum(np.square(residuals), axis=1)
-print(mse)
+se = np.sum(np.square(residuals), axis=1)
+print("SUM OF SQUARED RESIDUALS:\n", se)
 
 #in future, make this more generalisable, so that you can add as many data
-#points as you want
+#points as you want -- do this from the get-go
+
+sqRes = np.square(residuals) #squaring the residual
+rmse = []
+for i in sqRes:
+    rmse = np.append(rmse, np.sqrt(np.mean(i)))
+print("ROOT MEAN SQUARED ERROR:\n", rmse)
+
+"""
+Essentially rmse is where you take the square
+of each residual - this is to eliminate the fact
+that some residuals and some are negative.
+Then you take the mean of them to find generally 
+how each prediction curve is deviating from 
+its real data point counterpart.
+
+Then you square root because no one likes squares.
+"""
+
+"""
+Now, I want to be able to generate many slope values,
+essentially passing in an entire array of them, and I want to 
+be able to get the best fitting one.
+
+To do this, it would be ideal to generalise a lot
+of the variables I have above, turning them into
+applicable functions
+"""
