@@ -4,12 +4,12 @@ import numpy as np
 np.random.seed(10) 
 
 def linear_simple(x):
-    return 7*x
+    return -2.5*x
     """When you change this, ensure that it also lies
     within your variable range also """
 
 def calc_residuals(wlist, x, y):
-    y = linear_simple(x) + n3    
+    #y = linear_simple(x) + n3    
     wlist = wlist[:, np.newaxis]
     x = x[np.newaxis, :]
     sx = np.dot(wlist, x)
@@ -96,3 +96,39 @@ we've given the function for it.
 """
 
 print("The associated rmse/loss of this is:\n", np.min(rmse))
+
+"""
+GRADIENT DESCENT
+________________
+
+"""
+print("\n=================\n")
+
+fig3, (ax3, ax4) = plt.subplots(nrows=2)
+
+gradient = -5
+
+npts = 20
+Xtrain3 = np.linspace(-1,1,npts)
+noise = np.random.normal(0,1.0,npts)
+ytrain3 = linear_simple(Xtrain3) + noise
+ax3.scatter(Xtrain3, ytrain3)
+ax3.plot(Xtrain3, Xtrain3*[gradient], c='g')
+ax3.set_title("Mean square loss function")
+"""Handles dataset plotting"""
+
+wlims = np.linspace(-6,2,50)
+rmse2 = rootMeanSquareResiduals(calc_residuals(wlims, Xtrain3, ytrain3))
+ax4.plot(wlims, rmse2)
+ax4.scatter([-5.], rootMeanSquareResiduals(calc_residuals(np.array([-5]), Xtrain3, ytrain3)), c='r')
+"""Shows how the loss varies with the slope"""
+
+def loss_slope_w1(w1, Xtrain, ytrain):
+    return (2/len(Xtrain))*(np.dot(w1*Xtrain - ytrain, Xtrain))
+
+print("Slope of loss fn = ", loss_slope_w1(gradient, Xtrain3, ytrain3),
+      ", mse loss fn = ", rootMeanSquareResiduals(calc_residuals(np.array([gradient]), Xtrain3, ytrain3)))
+
+gw = loss_slope_w1(gradient, Xtrain3, ytrain3) 
+loss = rootMeanSquareResiduals(calc_residuals(np.array([-5]), Xtrain3, ytrain3))
+ax4.plot(wlims[:15],gw*(wlims[:15]+5) + loss, label='grad of loss') # plotting the slope using th
