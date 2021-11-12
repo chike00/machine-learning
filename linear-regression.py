@@ -4,7 +4,9 @@ import numpy as np
 np.random.seed(10) 
 
 def linear_simple(x):
-    return 2*x
+    return 7*x
+    """When you change this, ensure that it also lies
+    within your variable range also """
 
 def calc_residuals(wlist, x, y):
     y = linear_simple(x) + n3    
@@ -35,8 +37,8 @@ ytrain1 = linear_simple(Xtrain1) + n3
 
 #print("x= ",Xtrain1,"y= ", ytrain1,"noise added= ", n3)
 
-numberOfSlopes = 10
-slopes = np.linspace(-8,3,numberOfSlopes) #(min, max, number of slopes)
+numberOfSlopes = 100
+slopes = np.linspace(-8,8,numberOfSlopes) #(min, max, number of slopes)
 
 """
 More slopes means a more accurate loss function - more to check
@@ -81,7 +83,11 @@ print("Root mean square error:\n", rmse)
 fig2, ax2 = plt.subplots()
 ax2.plot(slopes, rmse)
 
-print("The slope which gives the minimum value is:\ny =", "?", "x")
+slopeSTAR = slopes[np.argmin(rmse)]
+
+print("The slope which gives the minimum value is:\ny =", slopeSTAR, "x")
+
+ax1.plot(Xtrain1, Xtrain1*slopeSTAR)
 
 """
 to solve this, maybe get the index/key of the minimum rmse 
