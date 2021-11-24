@@ -312,8 +312,12 @@ numiter - number of iterations
 So we have a whistory - which is the next weight (slope) it has iterated to
 """
 
-#for i in range(1000):
-#    print('numiter = {}:\n'.format(i), gradientdescent0(-5., Xtrain3, ytrain3, .2, i), "\n\n")
+
+"""
+Shows how the linear regression occurs
+"""
+for i in range(100):
+    print('numiter = {}:\n'.format(i), gradientdescent0(-5., Xtrain3, ytrain3, .2, i), "\n\n")
 
 i=1000
 wbest4 = gradientdescent0(-5, Xtrain3, ytrain3, 0.2, i)[1][i-1]
