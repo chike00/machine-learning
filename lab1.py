@@ -319,7 +319,6 @@ i=1000
 wbest4 = gradientdescent0(-5, Xtrain3, ytrain3, 0.2, i)[1][i-1]
 
 ax4.plot(X, wbest4*X, label="after gradient descent")
-ax4.legend()
 
 inclusive = 50
 
@@ -332,6 +331,30 @@ ax6.plot(XX, np.array([[gradientdescent0(-5, Xtrain3, ytrain3, 0.1, j)[2][j-1]] 
 ax6.set_xlabel("Number of iterations")
 ax6.set_ylabel("Loss")
 ax6.set_title("Number of iterations necessary to minimise loss")
+
+"""
+This function applies only to linear regression.
+See Rogers and Girolami, equations 1.8 and 1.10 for mathematical form and
+derivation.
+
+X is the data points, y is true value
+
+w1 was 2.5 
+"""
+def linear_fit(X,y):
+    num = (X*y).mean() - (X.mean()*y.mean())
+    den = (X**2).mean() - (X.mean())**2
+    w1 = num/den
+    w0 = y.mean() - w1*X.mean()
+    return w0, w1
+
+w0 = linear_fit(X, linear_simple(X))[0]
+w1 = linear_fit(X, linear_simple(X))[1]
+
+ax4.plot(X, w1*X + w0, label="Linear reg equation")
+
+print(w1)
+ax4.legend()
 """
 This was cool.
 What we did was use the generator feature we saw earlier to change the number of iterations.
