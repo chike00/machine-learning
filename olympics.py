@@ -77,10 +77,16 @@ The equation:
     }
 
 is not a closed form solution, as it requires infinite additions.
+
+ASSUMPTIONS FOR USING CLOSED FORM SOLUTION:
+    - The turning point of the loss function yields a minimum.
+        - Will give wrong value if a maximum.
+        - This can be verified beforehand by taking the second derivative
+        of the loss function and making sure it's positive.
 """
 
-X = olympics100m[::2]
-y = olympics100m[1::2]
+X = olympics100m[::2] #skip every other element
+y = olympics100m[1::2] #start at index 1 and skip every other step
 
 fig1, ax1 = plt.subplots()
 ax1.scatter(X, y)
