@@ -291,9 +291,14 @@ of the average squared loss function in the
 function loss_slope_w1
 """
 
+
+"""
+Since we only are looking at one slope, whistory and msehistory is only
+being appended one at a time.
+"""
 def gradientdescent0(initialweight, X, y, rate, numiter):
     whistory = []
-    msehistory = [] 
+    msehistory = []
     w = initialweight
     for i in range(numiter): 
         loss = mse(w, X, y)
